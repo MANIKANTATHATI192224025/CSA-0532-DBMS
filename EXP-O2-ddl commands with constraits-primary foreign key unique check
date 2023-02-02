@@ -1,0 +1,104 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 41
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use nikhil;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_nikhil |
++------------------+
+| employee         |
+| faculty          |
+| student          |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_name | varchar(20) | YES  |     | NULL    |       |
+| employee_id   | int(10)     | YES  |     | NULL    |       |
+| mobile_no     | int(10)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc faculty;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| faculty_name | varchar(20) | YES  |     | NULL    |       |
+| faculty_id   | int(10)     | YES  |     | NULL    |       |
+| mobile_no    | int(10)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc student;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| student_name | varchar(20) | YES  |     | NULL    |       |
+| roll_no      | int(10)     | YES  |     | NULL    |       |
+| mobile_no    | int(10)     | YES  |     | NULL    |       |
+| age          | int(3)      | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> alter table student add primary key(mobile_no);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| student_name | varchar(20) | YES  |     | NULL    |       |
+| roll_no      | int(10)     | YES  |     | NULL    |       |
+| mobile_no    | int(10)     | NO   | PRI | 0       |       |
+| age          | int(3)      | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table faculty add foreign key(mobile_no) references student(mobile_no);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> desc faculty;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| faculty_name | varchar(20) | YES  |     | NULL    |       |
+| faculty_id   | int(10)     | YES  |     | NULL    |       |
+| mobile_no    | int(10)     | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table student add unique(mobile_no);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| student_name | varchar(20) | YES  |     | NULL    |       |
+| roll_no      | int(10)     | YES  |     | NULL    |       |
+| mobile_no    | int(10)     | NO   | PRI | 0       |       |
+| age          | int(3)      | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table student add check(age>=15);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
