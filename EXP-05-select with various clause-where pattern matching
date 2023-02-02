@@ -1,0 +1,123 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 44
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use nikhil;
+Database changed
+ 
+
+mysql> show tables;
++------------------+
+| Tables_in_nikhil |
++------------------+
+| employee         |
+| faculty          |
+| student          |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> select*from student;
++--------------+---------+-----------+------+
+| student_name | roll_no | mobile_no | age  |
++--------------+---------+-----------+------+
+| teja         |       4 | 453213652 |   24 |
+| siva         |       5 | 753697675 |   18 |
++--------------+---------+-----------+------+
+2 rows in set (0.00 sec)
+
+
+mysql> insert into student values("mani",6,67563475,19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values("manoj",5,23455432,19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values("harish",9,9876545,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from student;
++--------------+---------+-----------+------+
+| student_name | roll_no | mobile_no | age  |
++--------------+---------+-----------+------+
+| harish       |       9 |   9876545 |   20 |
+| manoj        |       5 |  23455432 |   19 |
+| mani         |       6 |  67563475 |   19 |
+| teja         |       4 | 453213652 |   24 |
+| siva         |       5 | 753697675 |   18 |
++--------------+---------+-----------+------+
+5 rows in set (0.00 sec)
+
+mysql> select*from student where age=19;
++--------------+---------+-----------+------+
+| student_name | roll_no | mobile_no | age  |
++--------------+---------+-----------+------+
+| manoj        |       5 |  23455432 |   19 |
+| mani         |       6 |  67563475 |   19 |
++--------------+---------+-----------+------+
+2 rows in set (0.00 sec)
+
+mysql> select*from student where roll_no=5;
++--------------+---------+-----------+------+
+| student_name | roll_no | mobile_no | age  |
++--------------+---------+-----------+------+
+| manoj        |       5 |  23455432 |   19 |
+| siva         |       5 | 753697675 |   18 |
++--------------+---------+-----------+------+
+2 rows in set (0.00 sec)
+
+mysql> alter table student add marks int(3);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> update student set marks=99 where age=19;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update student set marks=95 where age=18;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set marks=97 where age=24;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student set marks=91 where age=20;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from student;
++--------------+---------+-----------+------+-------+
+| student_name | roll_no | mobile_no | age  | marks |
++--------------+---------+-----------+------+-------+
+| harish       |       9 |   9876545 |   20 |    91 |
+| manoj        |       5 |  23455432 |   19 |    99 |
+| mani         |       6 |  67563475 |   19 |    99 |
+| teja         |       4 | 453213652 |   24 |    97 |
+| siva         |       5 | 753697675 |   18 |    95 |
++--------------+---------+-----------+------+-------+
+5 rows in set (0.00 sec)
+mysql> select*from student where student_name like 'h____h';
++--------------+---------+-----------+------+-------+
+| student_name | roll_no | mobile_no | age  | marks |
++--------------+---------+-----------+------+-------+
+| harish       |       9 |   9876545 |   20 |    91 |
++--------------+---------+-----------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select*from student where student_name like 's%';
++--------------+---------+-----------+------+-------+
+| student_name | roll_no | mobile_no | age  | marks |
++--------------+---------+-----------+------+-------+
+| siva         |       5 | 753697675 |   18 |    95 |
++--------------+---------+-----------+------+-------+
+1 row in set (0.00 sec)
+
