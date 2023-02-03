@@ -1,0 +1,74 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 47
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use nikhil;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_nikhil |
++------------------+
+| employee         |
+| faculty          |
+| student          |
++------------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select*from student;
++--------------+---------+-----------+------+-------+---------+
+| student_name | roll_no | mobile_no | age  | marks | subject |
++--------------+---------+-----------+------+-------+---------+
+| harish       |       9 |   9876545 |   20 |    91 | dbms    |
+| manoj        |       5 |  23455432 |   19 |    99 | pdsd    |
+| mani         |       6 |  67563475 |   19 |    99 | pdsd    |
+| teja         |       4 | 453213652 |   24 |    97 | physics |
+| siva         |       5 | 753697675 |   18 |    95 | maths   |
++--------------+---------+-----------+------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select student_name,roll_no from student where student_name in(select student_name from student where age=19);
++--------------+---------+
+| student_name | roll_no |
++--------------+---------+
+| manoj        |       5 |
+| mani         |       6 |
++--------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> create table student1(name varchar(10),id int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into student1(name,id)
+    -> select student_name,roll_no
+    -> from student where age=19;
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+mysql> select*from student1;
++-------+------+
+| name  | id   |
++-------+------+
+| manoj |    5 |
+| mani  |    6 |
++-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select roll_no,(select name from student1 where id=5)as student_name,mobile_no,marks,subject from student where age=20;
++---------+--------------+-----------+-------+---------+
+| roll_no | student_name | mobile_no | marks | subject |
++---------+--------------+-----------+-------+---------+
+|       9 | manoj        |   9876545 |    91 | dbms    |
++---------+--------------+-----------+-------+---------+
+1 row in set (0.00 sec)
+
